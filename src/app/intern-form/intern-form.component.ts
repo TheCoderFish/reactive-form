@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-intern-form',
@@ -7,9 +8,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class InternFormComponent implements OnInit {
 
-  constructor() { }
+  internProfile: FormGroup = this.fb.group({
+    name: [''],
+    qualification: [''],
+    experience: [false],
+    experienceDetails: this.fb.group({
+      company: [''],
+      years: [null]
+    }),
+    domain: ['']
+  });
+
+  constructor(private fb: FormBuilder) { }
 
   ngOnInit() {
+    console.log(this.internProfile.value);
   }
 
 }
