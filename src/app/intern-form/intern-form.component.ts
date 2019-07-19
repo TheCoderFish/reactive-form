@@ -8,36 +8,49 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class InternFormComponent implements OnInit {
 
-
-  internProfile: FormGroup = this.fb.group({
-    name: ['', Validators.required],
-    qualification: ['', Validators.required],
-    experience: [false],
-    experienceDetails: this.fb.group({
-      company: [''],
-      years: [null]
-    }),
-    domain: ['', Validators.required]
-  });
-
-
-  domains = ['Angular', '.NET', 'Database', 'QA', 'Xamarin', 'ML'];
-
-  isSubmitted = false;
-
-  successMessage = 'Data submitted successfully';
+  internProfile: FormGroup;
+  domains: Array<string>;
+  mode: string;
 
   constructor(private fb: FormBuilder) { }
 
   ngOnInit() {
+    this.internProfile = this.fb.group({
+      name: ['', Validators.required],
+      qualification: ['', Validators.required],
+      experience: [false],
+      experienceDetails: this.fb.group({
+        company: [''],
+        years: [null]
+      }),
+      domain: ['', Validators.required]
+    });
+
+    this.mode = 'edit';
+
+    this.domains = ['Angular', '.NET', 'Database', 'QA', 'Xamarin', 'ML'];
+
+    //this.loadDefaultData();
   }
 
-  onSubmit() {
-    this.isSubmitted = true;
+
+  loadDefaultData() {
+    const intern = {
+      name: 'Nurali Hasan Khoja',
+      qualification: 'BE Electronics',
+      experience: true,
+      experienceDetails: {
+        company: 'Cognizant',
+        years: 1
+      },
+      domain: 'Angular'
+    };
+
+    this.internProfile.setValue(intern);
   }
 
-  editMode() {
-    this.isSubmitted = false;
+  toggle() {
+    this.mode = this.mode === 'edit' ? 'submit' : 'edit';
   }
 
   get name() {
