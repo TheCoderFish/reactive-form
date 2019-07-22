@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl, AbstractControl } from '@angular/forms';
+import { of } from 'rxjs';
+import { DummyInternService } from 'src/app/services/dummy-intern.service';
 
 @Component({
   selector: 'app-intern-form',
@@ -12,7 +14,8 @@ export class InternFormComponent implements OnInit {
   domains: Array<string>;
   mode: string;
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder,
+              private dummyData: DummyInternService) { }
 
   ngOnInit() {
     this.internProfile = this.fb.group({
@@ -29,23 +32,12 @@ export class InternFormComponent implements OnInit {
     this.mode = 'edit';
 
     this.domains = ['Angular', '.NET', 'Database', 'QA', 'Xamarin', 'ML'];
-    //this.loadDefaultData();
+    this.loadDefaultData();
   }
 
 
   loadDefaultData() {
-    const intern = {
-      name: 'Nurali Hasan Khoja',
-      qualification: 'BE Electronics',
-      experience: true,
-      experienceDetails: {
-        company: 'Cognizant',
-        years: 1
-      },
-      domain: 'Angular'
-    };
-
-    this.internProfile.setValue(intern);
+     this.dummyData.getDummyIntern().subscribe(data => this.internProfile.setValue(data));
   }
 
   toggle() {
