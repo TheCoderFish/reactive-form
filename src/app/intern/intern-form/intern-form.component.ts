@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl, AbstractControl } from '@angular/forms';
-import { of } from 'rxjs';
 import { DummyInternService } from 'src/app/services/dummy-intern.service';
+import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
+import { delay } from 'rxjs/operators';
 
 @Component({
   selector: 'app-intern-form',
@@ -15,7 +16,8 @@ export class InternFormComponent implements OnInit {
   mode: string;
 
   constructor(private fb: FormBuilder,
-              private dummyData: DummyInternService) { }
+              private dummyData: DummyInternService,
+              private spin: Ng4LoadingSpinnerService) { }
 
   ngOnInit() {
     this.internProfile = this.fb.group({
@@ -37,7 +39,11 @@ export class InternFormComponent implements OnInit {
 
 
   loadDefaultData() {
-     this.dummyData.getDummyIntern().subscribe(data => this.internProfile.setValue(data));
+    this.spin.show();
+    this.dummyData.getDummyIntern().pipe(delay(1000)).subscribe(data => {
+      this.internProfile.setValue(data);
+      this.spin.hide();
+    });
   }
 
   toggle() {
