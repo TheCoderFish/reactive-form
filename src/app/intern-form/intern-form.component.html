@@ -10,16 +10,18 @@
                     <div class="form-group">
                         <label for="name">Name</label>
                         <input type="text" class="form-control" id="name" required minlength="4" formControlName="name">
+                        <app-error-component [toCheck]="name" [label]="'Name'"></app-error-component>
                     </div>
                     <div class="form-group">
                         <label for="qualification">Qualification</label>
                         <input type="text" class="form-control" id="name" required formControlName="qualification">
+                        <app-error-component [toCheck]="qualification" [label]="'Qualification'"></app-error-component>
                     </div>
                     <div class="form-group">
                         <label class="form-check-label" for="experience"><pre>Do you have any prior Experience ?       </pre></label>
                         <input type="checkbox" class="form-check-input" id="exampleCheck1" formControlName="experience">
                     </div>
-                    <div *ngIf="experience">
+                    <div *ngIf="experience.value">
                         <div formGroupName="experienceDetails">
                             <div class="form-group">
                                 <label for="company">Company</label>
@@ -36,9 +38,10 @@
                         <select class="form-control" formControlName="domain" required>
                                         <option value="" selected disabled hidden>Choose here</option>
                                         <option *ngFor="let domain of domains" [value]="domain">{{domain}}</option>
-                                </select>
+                        </select>
                     </div>
                     <div class="centerify text-center">
+                        <button type="button" class="btn btn-info btn-block" (click)="internProfile.reset()">Clear</button>
                         <button type="submit" class="btn btn-primary btn-block" [disabled]="!internProfile.valid">Submit</button>
                     </div>
                 </form>
@@ -49,14 +52,14 @@
             <div class="data-box text-center">
                 <h1 appColorMe [color]="'#10902E'"> {{ 'Data submitted successfully' | uppercase }}</h1>
                 <ul class="list-unstyled">
-                    <li>Name: <span>{{name}}</span></li>
-                    <li>Qualification: <span>{{qualification}}</span></li>
-                    <li>Do I have Experience: <span>{{experience ? 'Yes' : 'No '}}</span></li>
-                    <div *ngIf="experience">
+                    <li>Name: <span>{{name.value}}</span></li>
+                    <li>Qualification: <span>{{qualification.value}}</span></li>
+                    <li>Do I have Experience: <span>{{experience.value ? 'Yes' : 'No '}}</span></li>
+                    <div *ngIf="experience.value">
                         <li>Company: <span>{{company}}</span></li>
                         <li>Number of years: <span>{{years}}</span></li>
                     </div>
-                    <li>Domain: <span>{{domain}}</span></li>
+                    <li>Domain: <span>{{domain.value}}</span></li>
                 </ul>
             </div>
             <button type="button" class="btn btn-primary btn-block" (click)="toggle()">Edit Details</button>

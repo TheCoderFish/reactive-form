@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl, AbstractControl } from '@angular/forms';
 
 @Component({
   selector: 'app-intern-form',
@@ -29,7 +29,6 @@ export class InternFormComponent implements OnInit {
     this.mode = 'edit';
 
     this.domains = ['Angular', '.NET', 'Database', 'QA', 'Xamarin', 'ML'];
-
     //this.loadDefaultData();
   }
 
@@ -54,52 +53,52 @@ export class InternFormComponent implements OnInit {
   }
 
   get name() {
-    return this.internProfile.get('name').value;
+    return this.internProfile.get('name') as FormControl;
   }
 
-  set name(input: string) {
+  set name(input: FormControl) {
     this.internProfile.patchValue({ name: input });
   }
 
   get qualification() {
-    return this.internProfile.get('qualification').value;
+    return this.internProfile.get('qualification') as FormControl;
   }
 
-  set qualification(input: string) {
+  set qualification(input: FormControl) {
     this.internProfile.patchValue({ qualification: input });
   }
 
   get experience() {
-    return this.internProfile.get('experience').value;
+    return this.internProfile.get('experience') as FormControl;
   }
 
-  set experience(input: string) {
+  set experience(input: FormControl) {
     this.internProfile.patchValue({ experience: input });
   }
 
   get company() {
-    const expDetail = this.internProfile.get('experienceDetails').value;
-    return expDetail.company;
+    const expDetail = this.internProfile.get('experienceDetails') as FormControl;
+    return expDetail.value.company;
 
   }
 
-  set company(input: string) {
+  set company(input: FormControl) {
     this.internProfile.patchValue({ experienceDetails: { company: input } });
   }
 
   get years() {
-    const expDetail = this.internProfile.get('experienceDetails').value;
-    return expDetail.years > 0 ? expDetail.years : 0;
+    const expDetail = this.internProfile.get('experienceDetails') as FormControl;
+    return expDetail.value.years > 0 ? expDetail.value.years : 0;
   }
 
-  set years(input: string) {
+  set years(input: FormControl) {
     this.internProfile.patchValue({ years: input });
   }
   get domain() {
-    return this.internProfile.get('domain').value;
+    return this.internProfile.get('domain') as FormControl;
   }
 
-  set domain(input: string) {
+  set domain(input: FormControl) {
     this.internProfile.patchValue({ domain: input });
   }
 }
