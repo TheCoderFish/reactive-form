@@ -4,6 +4,7 @@ import { ColorMeDirective } from './color-me/color-me.directive';
 import { CommonModule } from '@angular/common';
 import { ErrorComponentComponent } from './error-component/error-component.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { InternRoutingModule } from './intern-routing.module';
 
 @NgModule({
     declarations: [
@@ -13,12 +14,10 @@ import { ReactiveFormsModule } from '@angular/forms';
     ],
     imports: [
         CommonModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        InternRoutingModule
     ],
     exports: [
-        InternFormComponent,
-        ColorMeDirective,
-        ErrorComponentComponent
     ]
 })
 export class InternModule {

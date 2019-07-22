@@ -2,5 +2,13 @@
     <div class="header text-center">
         <h1>Intern Manangement Portal</h1>
     </div>
-    <app-intern-form></app-intern-form>
+    <button class="btn btn-info btn-block " routerLink="/form">Add Intern</button>
+
+    <div class="row mt-5">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-8">
+            <router-outlet></router-outlet>
+        </div>
+        <div class="col-sm-2"></div>
+    </div>
 </div>
